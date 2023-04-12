@@ -2,12 +2,12 @@ module Interact
   ( main
   )
 where
+import System.IO
 
 -- https://hackage.haskell.org/package/base-4.18.0.0/docs/Prelude.html#v:interact
--- fix of interact
--- interact2   ::  (String -> String) -> IO ()
--- interact2 f =   do s <- getLine
---                    putStrLn (f s)
+interact2   ::  (String -> String) -> IO ()
+interact2 f =   do s <- getLine
+                   putStrLn (f s)
 
 interaction :: String -> String
 interaction "jappie" = "hi"
@@ -15,4 +15,8 @@ interaction "jakob" = "hello"
 interaction x = "unkown input: " <> x
 
 main :: IO ()
-main = interact  interaction
+main = do
+  putStrLn "sss"
+  hSetBuffering stdin LineBuffering
+  hSetBuffering stdout NoBuffering
+  interact (concatMap interaction . lines)
