@@ -3,7 +3,7 @@
 {-# LANGUAGE TemplateHaskell #-}
 {-# LANGUAGE TypeFamilies #-}
 
-module YesodExample (main) where
+module UI.Yesod (main) where
 
 import Yesod
 import Data.Text

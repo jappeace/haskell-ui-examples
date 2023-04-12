@@ -1,13 +1,14 @@
 {-# LANGUAGE BangPatterns #-}
-module OptParse
+module UI.OptParse
   ( main
   )
 where
 
 import Options.Applicative
-import qualified Interact
+import qualified UI.Interact
 import Data.Foldable(fold)
-import qualified YesodExample
+import qualified UI.Yesod
+import qualified UI.Gtk
 
 data OptParseOptions = OptParseOptions
   { hello      :: String
@@ -35,6 +36,7 @@ cliParser = OptParseOptions
 data Program = CLI OptParseOptions
              | Interact
              | Yesod
+             | Gtk
 
 
 cliOptions :: Parser Program
@@ -45,6 +47,7 @@ programParser = subparser $ fold
       [ command "cli" (info cliOptions (progDesc "Greet the user"))
       , command "yesod" (info (pure Yesod) (progDesc "Start yesod server"))
       , command "interact" (info (pure Interact) (progDesc "interact"))
+      , command "gtk" (info (pure Gtk) (progDesc "gi-gtk"))
       ]
 
 main :: IO ()
@@ -59,8 +62,9 @@ main = program =<< customExecParser parserPrefs opts
 program :: Program -> IO ()
 program = \case
   CLI opts -> greet opts
-  Interact -> Interact.main
-  Yesod -> YesodExample.main
+  Interact -> UI.Interact.main
+  Yesod -> UI.Yesod.main
+  Gtk -> UI.Gtk.main
 
 greet :: OptParseOptions -> IO ()
 greet (OptParseOptions h False n) = putStrLn $ "Hello, " ++ h ++ replicate n '!'

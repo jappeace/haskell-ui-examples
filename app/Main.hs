@@ -1,6 +1,6 @@
 module Main where
 
-import qualified OptParse
+import qualified UI.OptParse
 
 main :: IO ()
-main = OptParse.main
+main = UI.OptParse.main

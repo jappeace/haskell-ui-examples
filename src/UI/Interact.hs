@@ -1,4 +1,4 @@
-module Interact
+module UI.Interact
   ( main
   ) where
 import System.IO
