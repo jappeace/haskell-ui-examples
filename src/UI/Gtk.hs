@@ -26,7 +26,8 @@ main = do
   button <- Gtk.new Gtk.Button [#label := "Click me!"]
   #packStart vbox button False False 0
 
-  let updateLabel count = do
+  let updateLabel :: Int -> IO ()
+      updateLabel count = do
         let newText = pack $ "Counter: " ++ show count
         #setText label newText
 

@@ -60,6 +60,8 @@ common common-options
       , text
       , gi-gtk
       , haskell-gi-base
+      , sdl2
+      , random
 
   default-language: Haskell2010
 
@@ -70,6 +72,7 @@ library
       UI.OptParse
       UI.Yesod
       UI.Gtk
+      UI.Sdl
   other-modules:
       Paths_template
   hs-source-dirs:

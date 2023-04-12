@@ -9,6 +9,7 @@ import qualified UI.Interact
 import Data.Foldable(fold)
 import qualified UI.Yesod
 import qualified UI.Gtk
+import qualified UI.Sdl
 
 data OptParseOptions = OptParseOptions
   { hello      :: String
@@ -37,6 +38,7 @@ data Program = CLI OptParseOptions
              | Interact
              | Yesod
              | Gtk
+             | Sdl
 
 
 cliOptions :: Parser Program
@@ -44,10 +46,11 @@ cliOptions = CLI <$> cliParser
 
 programParser :: Parser Program
 programParser = subparser $ fold
-      [ command "cli" (info cliOptions (progDesc "Greet the user"))
-      , command "yesod" (info (pure Yesod) (progDesc "Start yesod server"))
-      , command "interact" (info (pure Interact) (progDesc "interact"))
-      , command "gtk" (info (pure Gtk) (progDesc "gi-gtk"))
+      [ command "cli" (info cliOptions (progDesc "Greet the user, cli trough opt parse applicative"))
+      , command "yesod" (info (pure Yesod) (progDesc "Start yesod server, a web framework"))
+      , command "interact" (info (pure Interact) (progDesc "interact, the most basic of cli"))
+      , command "gtk" (info (pure Gtk) (progDesc "gi-gtk gimp tool kit"))
+      , command "sdl" (info (pure Sdl) (progDesc "sdl simple direct media layer"))
       ]
 
 main :: IO ()
@@ -65,6 +68,7 @@ program = \case
   Interact -> UI.Interact.main
   Yesod -> UI.Yesod.main
   Gtk -> UI.Gtk.main
+  Sdl -> UI.Sdl.main
 
 greet :: OptParseOptions -> IO ()
 greet (OptParseOptions h False n) = putStrLn $ "Hello, " ++ h ++ replicate n '!'
