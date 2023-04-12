@@ -7,6 +7,7 @@ where
 import Options.Applicative
 import qualified Interact
 import Data.Foldable(fold)
+import qualified YesodExample
 
 data OptParseOptions = OptParseOptions
   { hello      :: String
@@ -59,7 +60,7 @@ program :: Program -> IO ()
 program = \case
   CLI opts -> greet opts
   Interact -> Interact.main
-  Yesod -> pure ()
+  Yesod -> YesodExample.main
 
 greet :: OptParseOptions -> IO ()
 greet (OptParseOptions h False n) = putStrLn $ "Hello, " ++ h ++ replicate n '!'
