@@ -11,29 +11,6 @@ import qualified UI.Yesod
 import qualified UI.Gtk
 import qualified UI.Sdl
 
-data OptParseOptions = OptParseOptions
-  { hello      :: String
-  , quiet      :: Bool
-  , enthusiasm :: Int }
-
-cliParser :: Parser OptParseOptions
-cliParser = OptParseOptions
-      <$> strOption
-          ( long "hello"
-         <> metavar "TARGET"
-         <> help "Target for the greeting" )
-      <*> switch
-          ( long "direction"
-         <> short 'd'
-         <> help "Go forward or backward true time" )
-      <*> option auto
-          ( long "enthusiasm"
-         <> help "How enthusiastically to greet"
-         <> showDefault
-         <> value 1
-         <> metavar "INT" )
-
-
 data Program = CLI OptParseOptions
              | Interact
              | Yesod
@@ -52,6 +29,29 @@ programParser = subparser $ fold
       , command "gtk" (info (pure Gtk) (progDesc "gi-gtk gimp tool kit"))
       , command "sdl" (info (pure Sdl) (progDesc "sdl simple direct media layer"))
       ]
+
+data OptParseOptions = OptParseOptions
+  { _hello      :: String
+  , _quiet      :: Bool
+  , _enthusiasm :: Int }
+
+cliParser :: Parser OptParseOptions
+cliParser = OptParseOptions
+      <$> strOption
+          ( long "hello"
+         <> metavar "TARGET"
+         <> help "Target for the greeting" )
+      <*> switch
+          ( long "direction"
+         <> short 'd'
+         <> help "Go forward or backward true time" )
+      <*> option auto
+          ( long "enthusiasm"
+         <> help "How enthusiastically to greet"
+         <> showDefault
+         <> value 1
+         <> metavar "INT" )
+
 
 main :: IO ()
 main = program =<< customExecParser parserPrefs opts

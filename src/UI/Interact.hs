@@ -9,9 +9,9 @@ import System.IO
 --                    putStrLn (f s)
 
 interaction :: String -> String
-interaction "jappie" = "hi"
-interaction "jakob" = "hello"
-interaction x = "unkown input: " <> x
+interaction "jappie" = "hi\n"
+interaction "jakob" = "hello\n"
+interaction x = "unkown input: '" <> x <> "'\n"
 
 main :: IO ()
 main = do

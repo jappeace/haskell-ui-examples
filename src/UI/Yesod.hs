@@ -51,7 +51,15 @@ postContactR :: Handler Html
 postContactR = do
     ((result, widget), enctype) <- runFormPost contactForm
     case result of
-        FormSuccess contact -> defaultLayout [whamlet|<h1>Thank you, #{name contact}!|]
+        FormSuccess contact -> defaultLayout [whamlet|
+                                                    <h1>Thank you, #{name contact}!
+                                                    <p>You said
+                                                    <pre>#{message contact}
+                                                    <p>
+                                                      <a href=@{HomeR}>Home
+                                                      <br>
+                                                      <a href=@{AboutR}>About
+                                                    |]
         _ -> defaultLayout $ do
             setTitle "Contact - Error"
             [whamlet|
